@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Crea tu usuario</title>
     <link rel="icon" src="img/favicon.png" type="image/x-icon" sizes="16x16">
+            <!-- Meta Pixel Code -->
+        <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1072806391607694');
+        fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1072806391607694&ev=PageView&noscript=1"
+        /></noscript>
+        <!-- End Meta Pixel Code -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
@@ -288,7 +305,7 @@
                 <h2 class="text-2xl font-bold md:text-4xl" style="color: #4AD818">🎁20% BONIFICADO🎁</h2>
                 
                 <div class="flex justify-center items-center">
-                    <button class="flex animate-bounce-scale items-center justify-center gap-1 rounded-full md:px-24 md:py-6 p-4 text-2xl transition-all hover:brightness-90 w-3/4 cursor-pointer" style="background-color: #4AD818; color: #FFFFFF" onclick="window.open('https://wa.me/5492235595653?text=Hola!%20Vi%20su%20publicidad%20en%20redes%20y%20quiero%20crearme%20un%20usuario%20con%20mi%20%2530%20bonificado%2C%20me%20dan%20info%20%3F', '_blank')">
+                    <button id="whatsapp-button" class="flex animate-bounce-scale items-center justify-center gap-1 rounded-full md:px-24 md:py-6 p-4 text-2xl transition-all hover:brightness-90 w-3/4 cursor-pointer" style="background-color: #4AD818; color: #FFFFFF">
                         <span>Ir a Whatsapp Ahora</span>
                     </button>
                 </div>
@@ -349,6 +366,30 @@
     </main>
     
     <script>
+        // Función para manejar el clic en el botón de WhatsApp
+        function handleWhatsAppClick() {
+            // Enviar evento a Facebook Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Contact', {
+                    content_name: 'WhatsApp Button Click',
+                    content_category: 'Lead Generation',
+                    source: 'whatsapp_button'
+                });
+                
+                // También puedes enviar un evento personalizado
+                fbq('trackCustom', 'WhatsAppClick', {
+                    button_location: 'main_cta',
+                    page_url: window.location.href
+                });
+            }
+            
+            // Abrir WhatsApp
+            window.open('https://wa.me/5491125469875?text=Hola!%20Vi%20su%20publicidad%20en%20redes%20y%20quiero%20crearme%20un%20usuario%20con%20mi%20%2530%20bonificado%2C%20me%20dan%20info%20%3F', '_blank');
+        }
+        
+        // Agregar event listener al botón
+        document.getElementById('whatsapp-button').addEventListener('click', handleWhatsAppClick);
+        
         // Animación de notificación
         function animateNotification() {
             const notification = document.getElementById('notification');
