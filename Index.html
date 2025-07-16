@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crea tu usuario</title>
-    <link rel="icon" src="img/favicon.png" type="image/x-icon" sizes="16x16">
+    <link rel="icon" href="./img/favicon.png" type="image/png" sizes="16x16">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
@@ -242,6 +242,16 @@
             cursor: pointer;
         }
         
+        /* Imagen placeholder para pruebas */
+        .img-placeholder {
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+        }
+        
         @media (min-width: 768px) {
             .md\:text-5xl {
                 font-size: 3rem;
@@ -271,9 +281,11 @@
     </style>
 </head>
 <body class="min-h-screen text-white">
-    <main class="flex flex-col justify-between gap-10 min-h-screen overflow-x-hidden" style="background-image: linear-gradient(to bottom, undefined, undefined)">
+    <main class="flex flex-col justify-between gap-10 min-h-screen overflow-x-hidden" style="background-image: linear-gradient(to bottom, #f0f0f0, #e0e0e0)">
         <section class="flex flex-col justify-center items-center gap-14 px-5 pt-10">
-            <img alt="logo" width="250" height="250" style="color: transparent" src="img/goldclover.png">
+            <div class="img-placeholder" style="width: 250px; height: 250px;">
+                LOGO
+            </div>
             
             <div class="flex flex-col gap-6 text-center">
                 <h1 class="text-3xl font-bold md:text-5xl" style="color: #130109">✅ Plataforma Verificada ✅</h1>
@@ -289,14 +301,14 @@
                 
                 <div class="flex md:text-xl py-5 px-4 rounded-xl justify-center" style="color: #FFFFFF; background-color: #4AD818">
                     <div class="relative flex w-20">
-                        <div class="left-0 absolute border rounded-full overflow-hidden" style="border-color: #FFFFFF">
-                            <img alt="user1" width="30" height="30" style="color: transparent" src="img/foto1.png">
+                        <div class="left-0 absolute border rounded-full overflow-hidden img-placeholder" style="border-color: #FFFFFF; width: 30px; height: 30px;">
+                            U1
                         </div>
-                        <div class="left-5 absolute border rounded-full overflow-hidden" style="border-color: #FFFFFF">
-                            <img alt="user1" width="30" height="30" style="color: transparent" src="img/foto2.png">
+                        <div class="left-5 absolute border rounded-full overflow-hidden img-placeholder" style="border-color: #FFFFFF; width: 30px; height: 30px;">
+                            U2
                         </div>
-                        <div class="left-10 absolute border rounded-full overflow-hidden" style="border-color: #FFFFFF">
-                            <img alt="user1" width="30" height="30" style="color: transparent" src="img/foto3.png">
+                        <div class="left-10 absolute border rounded-full overflow-hidden img-placeholder" style="border-color: #FFFFFF; width: 30px; height: 30px;">
+                            U3
                         </div>
                     </div>
                     <h4> MÁS DE 10.000 CLIENTES GANANDO todos los días</h4>
@@ -326,7 +338,9 @@
         
         <section class="absolute left-0 top-5 z-50">
             <div id="notification" class="p-5 rounded-lg flex gap-2 items-center justify-center transition-all duration-500 translate-x-5 opacity-100" style="background-color: #1D0210">
-                <img alt="prize" width="50" height="50" class="w-auto h-full rounded-lg" style="color: transparent" src="img/winner.jpg">
+                <div class="img-placeholder rounded-lg" style="width: 50px; height: 50px;">
+                    WIN
+                </div>
                 <div>
                     <h4 style="color: #FFFFFF">Máximo Cabrera</h4>
                     <h4 style="color: #FFFFFF">🎁Ganador de $117237</h4>
