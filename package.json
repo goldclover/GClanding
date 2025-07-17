@@ -1,21 +1,19 @@
+cat > package.json << 'EOF'
 {
   "name": "gclanding",
   "version": "1.0.0",
   "description": "Gold Clover Landing Page",
   "main": "node.js",
   "scripts": {
-    "start": "node node.js",
-    "dev": "node node.js",
-    "build": "echo 'No build step required'"
+    "start": "node node.js"
   },
   "dependencies": {
-    "axios": "^1.6.0",
-    "express": "^4.18.0",
-    "dotenv": "^16.0.0"
+    "axios": "1.6.0",
+    "express": "4.18.0",
+    "dotenv": "16.0.0"
   },
   "engines": {
     "node": "18.x"
-  },
-  "type": "commonjs"
+  }
 }
-}
+EOF
