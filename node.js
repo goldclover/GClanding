@@ -3,7 +3,6 @@ const axios = require('axios');
 const crypto = require('crypto');
 const path = require('path');
 require('dotenv').config();
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -14,7 +13,7 @@ const FACEBOOK_API_VERSION = 'v18.0';
 
 // Middlewares
 app.use(express.json());
-app.use(express.static('public')); // Para servir archivos estáticos
+app.use(express.static(__dirname)); // ← Cambio aquí: ahora sirve desde la raíz
 
 // Función para hashear datos sensibles (opcional, para mayor privacidad)
 function hashData(data) {
@@ -40,10 +39,10 @@ app.post('/api/facebook-event', async (req, res) => {
             user_data = {},
             custom_data = {}
         } = req.body;
-
+        
         // Obtener IP del cliente
         const clientIP = getClientIP(req);
-
+        
         // Preparar datos del usuario
         const userData = {
             client_ip_address: clientIP,
@@ -51,7 +50,7 @@ app.post('/api/facebook-event', async (req, res) => {
             fbc: user_data.fbc,
             fbp: user_data.fbp
         };
-
+        
         // Payload para Facebook API
         const eventPayload = {
             data: [{
@@ -63,7 +62,7 @@ app.post('/api/facebook-event', async (req, res) => {
                 custom_data
             }]
         };
-
+        
         // Enviar a Facebook API
         const response = await axios.post(
             `https://graph.facebook.com/${FACEBOOK_API_VERSION}/${FACEBOOK_PIXEL_ID}/events`,
@@ -77,7 +76,7 @@ app.post('/api/facebook-event', async (req, res) => {
                 }
             }
         );
-
+        
         console.log('Facebook API Response:', response.data);
         
         res.json({
@@ -85,7 +84,6 @@ app.post('/api/facebook-event', async (req, res) => {
             message: 'Event sent successfully',
             facebook_response: response.data
         });
-
     } catch (error) {
         console.error('Error sending event to Facebook:', error.response?.data || error.message);
         
@@ -108,7 +106,7 @@ app.get('/api/health', (req, res) => {
 
 // Servir el archivo HTML principal
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html')); // ← Cambio aquí: ahora busca en la raíz
 });
 
 // Iniciar servidor
