@@ -366,9 +366,51 @@
     </main>
     
     <script>
+        // Función para obtener cookies de Facebook
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+        
+        // Función para enviar evento al backend
+        async function sendEventToBackend(eventName, customData = {}) {
+            try {
+                const eventData = {
+                    event_name: eventName,
+                    event_time: Math.floor(Date.now() / 1000),
+                    event_source_url: window.location.href,
+                    user_data: {
+                        client_user_agent: navigator.userAgent,
+                        fbc: getCookie('_fbc'),
+                        fbp: getCookie('_fbp')
+                    },
+                    custom_data: customData
+                };
+                
+                const response = await fetch('/api/facebook-event', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(eventData)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Event sent successfully:', result);
+                } else {
+                    console.error('Error sending event:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error sending event to backend:', error);
+            }
+        }
+        
         // Función para manejar el clic en el botón de WhatsApp
-        function handleWhatsAppClick() {
-            // Enviar evento a Facebook Pixel
+        async function handleWhatsAppClick() {
+            // Enviar evento al navegador (Meta Pixel)
             if (typeof fbq !== 'undefined') {
                 fbq('track', 'Contact', {
                     content_name: 'WhatsApp Button Click',
@@ -376,12 +418,28 @@
                     source: 'whatsapp_button'
                 });
                 
-                // También puedes enviar un evento personalizado
                 fbq('trackCustom', 'WhatsAppClick', {
                     button_location: 'main_cta',
                     page_url: window.location.href
                 });
             }
+            
+            // Enviar evento al servidor via backend
+            await sendEventToBackend('Contact', {
+                content_name: 'WhatsApp Button Click',
+                content_category: 'Lead Generation',
+                source: 'whatsapp_button',
+                button_location: 'main_cta',
+                value: 1.00,
+                currency: 'USD'
+            });
+            
+            // Enviar evento personalizado al servidor
+            await sendEventToBackend('WhatsAppClick', {
+                button_location: 'main_cta',
+                page_url: window.location.href,
+                platform: 'web'
+            });
             
             // Abrir WhatsApp
             window.open('https://wa.me/5491125469875?text=Hola!%20Vi%20su%20publicidad%20en%20redes%20y%20quiero%20crearme%20un%20usuario%20con%20mi%20%2530%20bonificado%2C%20me%20dan%20info%20%3F', '_blank');
